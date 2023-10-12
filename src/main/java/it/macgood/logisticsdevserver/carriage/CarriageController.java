@@ -18,12 +18,12 @@ public class CarriageController {
 
     private final CarriageService carriageService;
 
-    // TODO: 12.10.2023 сделать
     @GetMapping
     @JsonView(View.GetShortCarriage.class)
     public ResponseEntity<List<Carriage>> getAll() {
         return ResponseEntity.ok(carriageService.findAll());
     }
+
     @GetMapping(value = "/{id}")
     @JsonView(View.GetShortCarriage.class)
     public ResponseEntity<Carriage> getById(

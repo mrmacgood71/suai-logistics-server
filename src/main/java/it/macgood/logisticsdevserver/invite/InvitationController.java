@@ -30,6 +30,6 @@ public class InvitationController {
             @RequestParam String userId,
             @RequestParam String key
     ) {
-
+        invitationService.accept(Long.parseLong(userId), key);
     }
 }

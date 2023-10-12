@@ -28,7 +28,6 @@ public class Vehicle {
     private String model;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     private Company company;
 
     @OneToOne

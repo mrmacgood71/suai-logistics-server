@@ -1,6 +1,8 @@
 package it.macgood.logisticsdevserver.user;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import it.macgood.logisticsdevserver.user.model.*;
+import it.macgood.logisticsdevserver.view.View;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +38,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/addDriver")
+    @JsonView(View.GetDriver.class)
     public ResponseEntity<Driver> createDriver(
             @RequestBody RequestDriver driver
     ) {

@@ -40,16 +40,17 @@ public class VehicleService {
         return response;
     }
 
-    // TODO: 12.10.2023 исправить
+    // TODO: 12.10.2023 исправлено
 
     public Boolean save(RequestVehicle request) {
         try {
+            Driver driver = driverRepository.findById(request.getDriverId()).get();
             Vehicle vehicle = Vehicle.builder()
                     .model(request.getModel())
                     .mark(request.getMark())
                     .transportNumber(request.getTransportNumber())
-//                    .driver(driverRepository.findById(request.getDriverId()).get())
-//                    .company(companyRepository.findById(request.getCompany()).get())
+                    .driver(driver)
+                    .company(companyRepository.findById(request.getCompany()).get())
                     .build();
             vehicleRepository.save(vehicle);
             return true;
