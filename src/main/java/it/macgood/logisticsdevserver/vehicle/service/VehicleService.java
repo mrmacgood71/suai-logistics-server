@@ -40,6 +40,8 @@ public class VehicleService {
         return response;
     }
 
+    // TODO: 12.10.2023 исправить
+
     public Boolean save(RequestVehicle request) {
         try {
             Vehicle vehicle = Vehicle.builder()

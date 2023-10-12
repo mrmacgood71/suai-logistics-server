@@ -61,6 +61,7 @@ public class UserService {
                 .id(driver.getId())
                 .firstname(driver.getFirstname())
                 .lastname(driver.getLastname())
+                .company(companyRepository.findById(driver.getCompanyId()).get())
                 .build());
     }
 
