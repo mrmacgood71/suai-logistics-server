@@ -49,10 +49,26 @@ public class UserController {
 
     @PostMapping(value = "/editDriver/{id}")
     public ResponseEntity<Driver> editDriver(
-            @PathVariable String id
+            @PathVariable String id,
+            @RequestBody RequestDriver driver
     ) {
-
+        try {
+            Driver saved = userService.upsertDriver(driver);
+            return ResponseEntity.ok(saved);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
-
+    @DeleteMapping("deleteDriver/{id}")
+    public ResponseEntity<Driver> deleteDriver(
+            @PathVariable String id
+    ) {
+        try {
+            Driver saved = userService.deleteDriver(Long.parseLong(id));
+            return ResponseEntity.ok(saved);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 }

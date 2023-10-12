@@ -46,6 +46,7 @@ public class VehicleService {
                     .model(request.getModel())
                     .mark(request.getMark())
                     .transportNumber(request.getTransportNumber())
+                    .driver(driverRepository.findById(request.getDriverId()).orElseThrow())
                     .company(companyRepository.findById(request.getCompany()).orElseThrow())
                     .build();
             vehicleRepository.save(vehicle);
@@ -77,6 +78,16 @@ public class VehicleService {
         Optional<Vehicle> vehicle = vehicleRepository.findByDriver(driver.orElseThrow());
 
         return vehicle.orElseThrow();
+    }
+
+    public Boolean deleteVehicle(String id) {
+        try {
+            vehicleRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
 

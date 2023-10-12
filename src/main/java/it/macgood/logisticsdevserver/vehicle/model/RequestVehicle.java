@@ -13,4 +13,5 @@ public class RequestVehicle {
     private String mark;
     private String model;
     private String company;
+    private Long driverId;
 }

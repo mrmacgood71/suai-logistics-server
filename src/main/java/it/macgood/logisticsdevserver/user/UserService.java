@@ -1,5 +1,6 @@
 package it.macgood.logisticsdevserver.user;
 
+import it.macgood.logisticsdevserver.company.CompanyRepository;
 import it.macgood.logisticsdevserver.user.model.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ public class UserService {
 
     private final DriverRepository driverRepository;
     private final ManagerRepository managerRepository;
+    private final CompanyRepository companyRepository;
 
     public ResponseUser getRoleByUserId(Long id) {
 
@@ -62,6 +64,23 @@ public class UserService {
                 .build());
     }
 
-//    public Driver saveDriver(Driver driver)
+    public Driver upsertDriver(RequestDriver driver) {
+        return driverRepository.save(Driver.builder()
+                .id(driver.getId())
+                .firstname(driver.getFirstname())
+                .lastname(driver.getLastname())
+                .company(companyRepository.findById(driver.getCompanyId()).get())
+                .build());
+    }
+
+    public Driver deleteDriver(Long id) {
+        var deletedDriver = driverRepository.findById(id);
+        try {
+            driverRepository.deleteById(id);
+            return deletedDriver.orElseThrow();
+        } catch (Exception e) {
+            throw new UnsupportedOperationException();
+        }
+    }
 
 }

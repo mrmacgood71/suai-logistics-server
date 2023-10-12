@@ -1,10 +1,5 @@
 package it.macgood.logisticsdevserver.user.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import it.macgood.logisticsdevserver.company.model.Company;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
