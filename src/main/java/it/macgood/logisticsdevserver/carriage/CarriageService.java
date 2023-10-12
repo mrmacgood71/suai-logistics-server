@@ -52,6 +52,13 @@ public class CarriageService {
         return true;
     }
 
+    public Boolean finishCarriage(Long id) {
+        Carriage carriage = carriageRepository.findById(id).get();
+        carriage.setStatus("Завершена");
+        carriageRepository.save(carriage);
+        return true;
+    }
+
     public List<ResponseCarriage> findAllByStatus(String type) {
         List<ResponseCarriage> response = new ArrayList<>();
         List<Carriage> carriages = carriageRepository.findAll();

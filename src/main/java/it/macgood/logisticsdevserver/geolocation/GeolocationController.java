@@ -25,13 +25,14 @@ public class GeolocationController {
         return geolocationService.getInformation(carriage, current);
     }
 
-    @GetMapping(value = "accept", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "accept", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> accept(
-            @RequestParam String driverId
+            @RequestParam String driverId,
+            @RequestBody Geolocation current
     ) {
         try {
             ResponseCarriage byDriver = carriageService.findByDriver(Long.parseLong(driverId));
-            carriageService.changeStatus(byDriver.getId());
+            carriageService.finishCarriage(byDriver.getId());
             return ResponseEntity.ok(true);
         } catch (Exception e) {
             return ResponseEntity.ok(false);
