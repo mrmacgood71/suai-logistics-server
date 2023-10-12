@@ -1,6 +1,6 @@
 package it.macgood.logisticsdevserver.carriage;
 
-import org.springframework.data.domain.Example;
+import it.macgood.logisticsdevserver.carriage.model.Carriage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

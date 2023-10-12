@@ -1,7 +1,12 @@
 package it.macgood.logisticsdevserver.user;
 
+import it.macgood.logisticsdevserver.carriage.CarriageRepository;
+import it.macgood.logisticsdevserver.carriage.CarriageService;
+import it.macgood.logisticsdevserver.carriage.model.Carriage;
 import it.macgood.logisticsdevserver.company.CompanyRepository;
 import it.macgood.logisticsdevserver.user.model.*;
+import it.macgood.logisticsdevserver.vehicle.model.Vehicle;
+import it.macgood.logisticsdevserver.vehicle.repository.VehicleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +17,10 @@ import java.util.Optional;
 public class UserService {
 
     private final DriverRepository driverRepository;
+    private final VehicleRepository vehicleRepository;
     private final ManagerRepository managerRepository;
     private final CompanyRepository companyRepository;
+    private final CarriageRepository carriageRepository;
 
     public ResponseUser getRoleByUserId(Long id) {
 
@@ -56,6 +63,12 @@ public class UserService {
         );
     }
 
+    public void deleteCompany(Long id) {
+        Manager manager = managerRepository.findById(id).get();
+        manager.setCompany(null);
+        managerRepository.save(manager);
+    }
+
     public Driver saveRequestedDriver(RequestDriver driver) {
         return driverRepository.save(Driver.builder()
                 .id(driver.getId())
@@ -77,8 +90,23 @@ public class UserService {
     public Driver deleteDriver(Long id) {
         var deletedDriver = driverRepository.findById(id);
         try {
-            driverRepository.deleteById(id);
-            return deletedDriver.orElseThrow();
+            Optional<Carriage> first = carriageRepository.findAll()
+                    .stream()
+                    .filter(carriage -> carriage.getVehicle().getDriver().getId().equals(id))
+                    .findFirst();
+            if (first.isEmpty()) {
+                Optional<Vehicle> byDriver = vehicleRepository.findByDriver(deletedDriver.get());
+                if (!byDriver.isEmpty()) {
+                    byDriver.get().setDriver(null);
+                    vehicleRepository.save(byDriver.get());
+                }
+                driverRepository.deleteById(id);
+                return deletedDriver.orElseThrow();
+            } else {
+                return Driver.builder().build();
+            }
+
+
         } catch (Exception e) {
             throw new UnsupportedOperationException();
         }

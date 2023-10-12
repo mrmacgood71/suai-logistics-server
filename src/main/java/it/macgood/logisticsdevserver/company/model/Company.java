@@ -24,6 +24,7 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.UUID)
     @JsonView(View.GetShortCarriage.class)
     private String id;
+    @JsonView(View.GetShortCarriage.class)
     private String name;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)

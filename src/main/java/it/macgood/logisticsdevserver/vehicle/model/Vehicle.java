@@ -2,7 +2,7 @@ package it.macgood.logisticsdevserver.vehicle.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
-import it.macgood.logisticsdevserver.carriage.Carriage;
+import it.macgood.logisticsdevserver.carriage.model.Carriage;
 import it.macgood.logisticsdevserver.company.model.Company;
 import it.macgood.logisticsdevserver.user.model.Driver;
 import it.macgood.logisticsdevserver.view.View;

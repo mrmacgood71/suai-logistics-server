@@ -69,9 +69,33 @@ public class UserController {
     ) {
         try {
             Driver saved = userService.deleteDriver(Long.parseLong(id));
+            if (saved.getFirstname().isEmpty()) {
+                return ResponseEntity
+                        .internalServerError()
+                        .body(Driver.builder()
+                                .firstname("Этот водитель сейчас в поездке")
+                                .lastname("Удалить его невозможно")
+                                .build()
+                        );
+            }
             return ResponseEntity.ok(saved);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
+            return ResponseEntity
+                    .internalServerError()
+                    .body(Driver.builder()
+                            .firstname("Этот водитель сейчас в поездке")
+                            .lastname("Удалить его невозможно")
+                            .build()
+                    );
         }
     }
+
+    @DeleteMapping("/quitByManager/{id}")
+    public ResponseEntity<Boolean> quitFromCompanyByManager(
+            @PathVariable String id
+    ) {
+        userService.deleteCompany(Long.parseLong(id));
+        return ResponseEntity.ok(true);
+    }
+
 }

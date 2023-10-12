@@ -20,11 +20,11 @@ import lombok.NoArgsConstructor;
 public class Driver {
 
     @Id
-    @JsonView(View.GetDriver.class)
+    @JsonView({View.GetDriver.class, View.GetShortCarriage.class})
     private Long id;
-    @JsonView(View.GetDriver.class)
+    @JsonView({View.GetDriver.class, View.GetShortCarriage.class})
     private String firstname;
-    @JsonView(View.GetDriver.class)
+    @JsonView({View.GetDriver.class, View.GetShortCarriage.class})
     private String lastname;
 
     @ManyToOne(fetch = FetchType.LAZY)
