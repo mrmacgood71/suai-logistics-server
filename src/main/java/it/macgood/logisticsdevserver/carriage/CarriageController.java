@@ -18,6 +18,7 @@ public class CarriageController {
 
     private final CarriageService carriageService;
 
+    // TODO: 12.10.2023 сделать
     @GetMapping
     @JsonView(View.GetShortCarriage.class)
     public ResponseEntity<List<Carriage>> getAll() {

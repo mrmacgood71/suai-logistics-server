@@ -24,6 +24,7 @@ public class InvitationController {
         }
     }
 
+    // TODO: 12.10.2023 сделать
     @PostMapping("/accept")
     public void acceptDriver(
             @RequestParam String userId,

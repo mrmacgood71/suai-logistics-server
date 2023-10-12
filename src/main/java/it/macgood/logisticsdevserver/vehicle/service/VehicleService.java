@@ -46,8 +46,8 @@ public class VehicleService {
                     .model(request.getModel())
                     .mark(request.getMark())
                     .transportNumber(request.getTransportNumber())
-                    .driver(driverRepository.findById(request.getDriverId()).orElseThrow())
-                    .company(companyRepository.findById(request.getCompany()).orElseThrow())
+//                    .driver(driverRepository.findById(request.getDriverId()).get())
+//                    .company(companyRepository.findById(request.getCompany()).get())
                     .build();
             vehicleRepository.save(vehicle);
             return true;

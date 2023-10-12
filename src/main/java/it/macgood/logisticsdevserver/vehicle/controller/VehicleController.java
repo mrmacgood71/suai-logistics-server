@@ -73,7 +73,7 @@ public class VehicleController {
         return ResponseEntity.ok(vehicleService.save(vehicle));
     }
 
-    @PostMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> deleteVehicle(
             @PathVariable String id
     ) {
